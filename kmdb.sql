@@ -94,10 +94,39 @@
 .headers off
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
+-- DROP TABLE IF EXISTS roles;
 -- TODO!
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS agents;
 
 -- Create new tables, according to your domain model
 -- TODO!
+
+CREATE TABLE studios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT
+);
+
+CREATE TABLE movies (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT,
+  year_released INTEGER,
+  mpaa_rating TEXT,
+  studio_id INTEGER
+);
+
+CREATE TABLE agents (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT
+);
+
+CREATE TABLE actors (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  agent_id INTEGER
+);
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
@@ -159,3 +188,9 @@
 -- Represented by agent
 -- ====================
 -- Christian Bale
+
+
+
+
+
+
