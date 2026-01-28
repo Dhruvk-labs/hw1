@@ -148,7 +148,8 @@ INSERT INTO movies (title, year_released, mpaa_rating, studio_id) VALUES
 
 INSERT INTO agents (name) VALUES
   ('Expensive Artists Agency'),
-  ('MBA Talent Agency');
+  ('MBA Talent Agency'),
+  ('Independent');
 
 INSERT INTO actors (name, agent_id) VALUES
   ('Christian Bale', 1),
@@ -163,14 +164,42 @@ INSERT INTO actors (name, agent_id) VALUES
   ('Joseph Gordon-Levitt', 1),
   ('Anne Hathaway', 2);
 
+UPDATE actors
+SET agent_id = 3
+WHERE name = 'Heath Ledger';
+
+
+INSERT INTO roles (movie_id, actor_id, character_name) VALUES
+  (1, 1, 'Bruce Wayne'),
+  (1, 2, 'Alfred'),
+  (1, 3, 'Ra''s al Ghul'),
+  (1, 4, 'Rachel Dawes'),
+  (1, 5, 'Commissioner Gordon'),
+  (2, 1, 'Bruce Wayne'),
+  (2, 6, 'Joker'),
+  (2, 7, 'Harvey Dent'),
+  (2, 2, 'Alfred'),
+  (2, 8, 'Rachel Dawes'),
+  (3, 1, 'Bruce Wayne'),
+  (3, 9, 'Bane'),
+  (3, 10, 'John Blake'),
+  (3, 11, 'Selina Kyle'),
+  (3, 2, 'Alfred');
+
 -- Prints a header for the movies output
 .print "Movies"
 .print "======"
 .print ""
 
 -- ***TODO!***
--- The SQL statement for the movies output goes here.
-
+SELECT
+  m.title,
+  m.year_released,
+  m.mpaa_rating,
+  s.name
+FROM movies m
+JOIN studios s ON m.studio_id = s.id
+ORDER BY m.year_released;
 -- Example output:
 -- Movies
 -- ======
@@ -185,7 +214,14 @@ INSERT INTO actors (name, agent_id) VALUES
 .print ""
 
 -- ***TODO!***
--- The SQL statement for the cast output goes here.
+SELECT
+  m.title,
+  a.name,
+  r.character_name
+FROM roles r
+JOIN movies m ON r.movie_id = m.id
+JOIN actors a ON r.actor_id = a.id
+ORDER BY m.year_released, m.title, a.name;
 
 -- Example output:
 -- Top Cast
@@ -213,7 +249,12 @@ INSERT INTO actors (name, agent_id) VALUES
 .print ""
 
 -- ***TODO!***
--- The SQL statement for the represented actor(s) output goes here.
+SELECT
+  ag.name,
+  a.name
+FROM actors a
+JOIN agents ag ON a.agent_id = ag.id
+ORDER BY ag.name, a.name;
 
 -- Example output:
 -- Represented by agent
